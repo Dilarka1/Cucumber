@@ -1,6 +1,6 @@
-package com.vytrack.Day1;
+package com.vytrack.notes;
 
-public class notes {
+public class notes12_17 {
     /*
     Today is 12/17/2019
     Agenda:
