@@ -8,7 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 public class BrowserUtils {
@@ -118,7 +120,7 @@ public class BrowserUtils {
     public static void clickWithWait(WebElement webElement) {
         Wait wait = new FluentWait<>(Driver.get())
                 .withTimeout(Duration.ofSeconds(15))
-                .pollingEvery(Duration.ofMillis(200))
+                .pollingEvery(Duration.ofMillis(800))
                 .ignoring(NoSuchElementException.class)
                 .ignoring(ElementNotVisibleException.class)
                 .ignoring(ElementClickInterceptedException.class)
@@ -134,7 +136,6 @@ public class BrowserUtils {
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
-            element.click();
         }
     }
 
@@ -162,5 +163,24 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(Driver.get(), 10);
         wait.until(ExpectedConditions.titleIs(pageTitle));
     }
-}
 
+    /**
+     * This method will convert list of WebElements into list of string
+     *
+     * @param listOfWebElements
+     * @return list of strings
+     */
+    public static List<String> getListOfString(List<WebElement> listOfWebElements) {
+        List<String> listOfStrings = new ArrayList<>();
+        for (WebElement element : listOfWebElements) {
+            String value = element.getText().trim();
+            //if there is no text
+            //do not add this blank text into list
+            if (value.length() > 0) {
+                listOfStrings.add(value);
+            }
+        }
+        return listOfStrings;
+    }
+
+}
