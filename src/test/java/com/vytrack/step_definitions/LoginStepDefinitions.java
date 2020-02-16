@@ -1,6 +1,7 @@
 package com.vytrack.step_definitions;
 
 import com.vytrack.pages.LoginPage;
+import com.vytrack.utilities.BrowserUtils;
 import com.vytrack.utilities.ConfigurationReader;
 import com.vytrack.utilities.Driver;
 import io.cucumber.java.en.*;
@@ -73,5 +74,13 @@ public class LoginStepDefinitions {
     public void user_logs_in_as(String role) {
         loginPage.login(role);
     }
+
+    @Then("the page title should be {string}")
+    public void the_page_title_should_be(String string) {
+        BrowserUtils.waitForPageTitle(string);
+        Assert.assertEquals("Title is not correct", string, Driver.get().getTitle());
+    }
+
+
 
 }
