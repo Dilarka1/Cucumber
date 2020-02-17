@@ -78,7 +78,8 @@ Question: what's the difference between data table and examples table?
     Examples: drivers
       | role   | module     | sub module      | title                                                        |
       | driver | Fleet      | Vehicles        | Car - Entities - System - Car - Entities - System            |
-In case of Examples table, we don't read values as list, map, list<map<key, value>>. We retrieve values separately, as single values not collections of values.
+In case of Examples table, we don't read values as list, map, list<map<key, value>>.
+We retrieve values separately, as single values not collections of values.
 plugin = {"html:target/default-cucumber-reports",
                 "json:target/cucumber.json",
                 "rerun:target/rerun.txt" <---------- To generate txt file with failed scenarios
@@ -107,7 +108,8 @@ To perform these runs automatically, add it into maven-surefire configuration */
     file:src/test/resources/features/SmokeTest.feature:19
             19 means scenario on line 19 failed
 ################################
-    Scenario Outline -  type of scenario that runs multiple times. We use Scenario Outline to run same test with different data sets. In testing, it calls Data Driven Testing.
+    Scenario Outline -  type of scenario that runs multiple times. We use Scenario Outline to run same test with different data sets.
+     In testing, it calls Data Driven Testing.
     Scenario Outline pull data from Examples table. So don't forget to add it.
     To read specific parameter, use angled brackets <>
     To read role value, we have to put role inside angled brackets: <role>

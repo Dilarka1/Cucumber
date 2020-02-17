@@ -13,67 +13,81 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-<dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.7.1</version>
+            <!--            <scope>test</scope>-->
+        </dependency>
 
-    <dependency>
-        <groupId>io.github.bonigarcia</groupId>
-        <artifactId>webdrivermanager</artifactId>
-        <version>3.8.1</version>
-    </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>3.141.59</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi-ooxml</artifactId>
-        <version>4.1.1</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.1</version>
+        </dependency>
 
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
-    <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-java</artifactId>
-        <version>4.8.1</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
-    <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-junit</artifactId>
-        <version>4.8.1</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>1.8.0-beta2</version>
-    </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>4.7.4</version>
+        </dependency>
 
 
-</dependencies>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>4.7.4</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>7.3.0</version>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>3.0.0-M3</version>
                 <configuration>
+                    <runOrder>Alphabetical</runOrder>
                     <includes>
                         <include>**/CucumberRunner.java</include>
+                        <include>**/FailedRunner.java</include>
                     </includes>
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
+                    <testFailureIgnore>false</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>4.11.2</version>
+                <version>4.9.0</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -94,6 +108,33 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>Regression</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <configuration>
+
+                            <parallel>methods</parallel>
+                            <perCoreThreadCount>false</perCoreThreadCount>
+                            <threadCountMethods>2</threadCountMethods>
+
+                            <includes>
+                                <include>**/RegressionRunner.java</include>
+                            </includes>
+                            <testFailureIgnore>false</testFailureIgnore>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
 </project>
