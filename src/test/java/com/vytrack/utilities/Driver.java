@@ -9,6 +9,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import java.net.MalformedURLException;
@@ -66,16 +68,17 @@ public class Driver {
                     try {
                         ChromeOptions chromeOptions = new ChromeOptions();
                         chromeOptions.setCapability("platform", Platform.ANY);
-                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-166-190-92.compute-1.amazonaws.com:4444/wd/hub"), chromeOptions));
+                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-165-231-97.compute-1.amazonaws.com:4444/wd/hub"), chromeOptions));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
                 case "remote_firefox":
                     try {
-                        FirefoxOptions firefoxOptions = new FirefoxOptions();
-                        firefoxOptions.setCapability("platform", Platform.ANY);
-                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-166-190-92.compute-1.amazonaws.com:4444/wd/hub"), firefoxOptions));
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                        desiredCapabilities.setBrowserName(BrowserType.FIREFOX);
+
+                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-165-231-97.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
                     } catch (Exception e) {     //"http://localhost:4444/wd/hub"
                         e.printStackTrace();
                     }
