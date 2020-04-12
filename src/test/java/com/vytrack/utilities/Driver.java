@@ -68,7 +68,7 @@ public class Driver {
                     try {
                         ChromeOptions chromeOptions = new ChromeOptions();
                         chromeOptions.setCapability("platform", Platform.ANY);
-                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-165-231-97.compute-1.amazonaws.com:4444/wd/hub"), chromeOptions));
+                        driverPool.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -78,7 +78,7 @@ public class Driver {
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName(BrowserType.FIREFOX);
 
-                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-165-231-97.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
+                        driverPool.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities));
                     } catch (Exception e) {     //"http://localhost:4444/wd/hub"
                         e.printStackTrace();
                     }
